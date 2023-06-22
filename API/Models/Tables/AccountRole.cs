@@ -6,7 +6,6 @@ namespace API.Models.Tables;
 [Table("tb_tr_account_roles")]
 public class AccountRole : BaseEntity
 {
-    [Key]
 
     [Column("account_guid")]
     public Guid AccountGuid { get; set; }
@@ -15,7 +14,7 @@ public class AccountRole : BaseEntity
     public Guid RoleGuid { get; set; }
 
     // Cardinality
-    public Account Account { get; set; }
-    public Role Role { get; set; }
+    public Account? Account { get; set; }
+    public Role? Role { get; set; }
 
 }

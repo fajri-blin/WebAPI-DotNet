@@ -6,7 +6,6 @@ namespace API.Models.Tables;
 [Table("tb_m_universities")]
 public class University : BaseEntity
 {
-    [Key]
 
     [Column("code", TypeName = "nvarchar(50)")]
     public string Code { get; set; }
@@ -15,6 +14,6 @@ public class University : BaseEntity
     public string Name { get; set; }
 
     // Cardinality
-    public ICollection<Education> Educations { get; set; }
+    public ICollection<Education>? Educations { get; set; }
 
 }

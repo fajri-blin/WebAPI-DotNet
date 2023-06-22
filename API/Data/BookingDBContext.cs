@@ -28,22 +28,6 @@ public class BookingDBContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         //Constrains Unique
-        modelBuilder.Entity<BaseEntity>()
-            .HasIndex(base_entity => base_entity.Guid).IsUnique();
-
-        modelBuilder.Entity<Booking>()
-            .HasIndex(booking => new
-            {
-                booking.RoomGuid,
-                booking.EmployeeGuid
-            }).IsUnique();
-
-        modelBuilder.Entity<AccountRole>()
-            .HasIndex(account_role => new
-            {
-                account_role.AccountGuid,
-                account_role.RoleGuid
-            }).IsUnique();
 
         modelBuilder.Entity<Employee>()
             .HasIndex(employee => new
@@ -52,9 +36,6 @@ public class BookingDBContext : DbContext
                 employee.Email,
                 employee.PhoneNumber
             }).IsUnique();
-
-        modelBuilder.Entity<Education>()
-            .HasIndex(education => education.UniversityGuid).IsUnique();
 
         //Relationship
 

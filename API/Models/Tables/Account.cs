@@ -6,7 +6,6 @@ namespace API.Models.Tables;
 [Table("tb_m_accounts")]
 public class Account : BaseEntity
 {
-    [Key]
 
     [Column("password", TypeName = "nvarchar(255)")]
     public string Password { get; set; }
@@ -25,8 +24,8 @@ public class Account : BaseEntity
 
     //Cardinality
 
-    public ICollection<AccountRole> AccountRoles { get; set;}
+    public ICollection<AccountRole>? AccountRoles { get; set;}
 
-    public Employee Employee  { get; set; }
+    public Employee? Employee  { get; set; }
 
 }

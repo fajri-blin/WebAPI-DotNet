@@ -7,7 +7,7 @@ namespace API.Models.Tables;
 [Table("tb_tr_bookings")]
 public class Booking : BaseEntity
 {
-    [Key]
+
 
     [Column("start_date")]
     public DateTime StartDate { get; set; }
@@ -28,6 +28,6 @@ public class Booking : BaseEntity
     public Guid EmployeeGuid { get; set; }
 
     //Cardinality
-    public Employee Employee { get; set; }
-    public Room Room { get; set; }
+    public Employee? Employee { get; set; }
+    public Room? Room { get; set; }
 }

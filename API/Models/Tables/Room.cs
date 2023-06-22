@@ -6,7 +6,6 @@ namespace API.Models.Tables;
 [Table("tb_m_rooms")]
 public class Room : BaseEntity
 {
-    [Key]
 
     [Column("name", TypeName = "nvarchar(100)")]
     public string Name { get; set; }
@@ -18,5 +17,5 @@ public class Room : BaseEntity
     public int Capacity { get; set; }
 
     //Cardinality
-    public ICollection<Booking> Bookings { get; set; }
+    public ICollection<Booking>? Bookings { get; set; }
 }

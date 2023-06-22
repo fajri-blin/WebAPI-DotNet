@@ -7,7 +7,6 @@ namespace API.Models.Tables;
 [Table("tb_m_employees")]
 public class Employee : BaseEntity
 {
-    [Key]
 
     [Column("nik", TypeName = "nchar(6)")]
     public string NIK { get; set; }
@@ -35,8 +34,8 @@ public class Employee : BaseEntity
 
     // Cardinality
 
-    public Account Account { get; set; }
+    public Account? Account { get; set; }
 
-    public ICollection<Booking> Bookings { get; set; }
-    public Education Education { get; set; }
+    public ICollection<Booking>? Bookings { get; set; }
+    public Education? Education { get; set; }
 }

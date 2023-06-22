@@ -6,7 +6,6 @@ namespace API.Models.Tables;
 [Table("tb_m_educations")]
 public class Education : BaseEntity
 {
-    [Key]
 
     [Column("major", TypeName = "nvarchar(100)")]
     public string Major { get; set; }
@@ -21,7 +20,7 @@ public class Education : BaseEntity
     public Guid UniversityGuid { get; set; }
 
     //Cardinality
-    public University University { get; set; }
-    public Employee Employee { get; set; }
+    public University? University { get; set; }
+    public Employee? Employee { get; set; }
 
 }
