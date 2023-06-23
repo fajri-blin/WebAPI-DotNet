@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models.Tables;
+namespace API.Models;
 
 [Table("tb_m_roles")]
 public class Role : BaseEntity
@@ -12,5 +12,5 @@ public class Role : BaseEntity
 
     //Cardinaltiy
 
-    public ICollection<AccountRole>? AccountRoles { get; set;}
+    public ICollection<AccountRole>? AccountRoles { get; set; }
 }

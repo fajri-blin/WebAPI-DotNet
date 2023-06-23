@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models.Tables;
+namespace API.Models;
 
 [Table("tb_m_accounts")]
 public class Account : BaseEntity
@@ -24,8 +24,8 @@ public class Account : BaseEntity
 
     //Cardinality
 
-    public ICollection<AccountRole>? AccountRoles { get; set;}
+    public ICollection<AccountRole>? AccountRoles { get; set; }
 
-    public Employee? Employee  { get; set; }
+    public Employee? Employee { get; set; }
 
 }

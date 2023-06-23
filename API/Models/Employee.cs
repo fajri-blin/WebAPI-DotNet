@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models.Tables;
+namespace API.Models;
 
 [Table("tb_m_employees")]
 public class Employee : BaseEntity

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using API.Models.Tables;
 using API.Models;
 
 namespace API.Data;
