@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
-     where TIEntityRepository : IGeneralRepository<TEntity>
+    where TIEntityRepository : IGeneralRepository<TEntity>
+    where TEntity : class
 {
-    private readonly TIEntityRepository _entityRepository;
+    protected readonly TIEntityRepository _entityRepository;
 
     public GeneralController(TIEntityRepository entity_repository)
     {
