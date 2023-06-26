@@ -56,7 +56,7 @@ public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
         return Ok(isUpdated);
     }
 
-    [HttpDelete]
+    [HttpDelete("{guid}")]
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _entityRepository.Delete(guid);
