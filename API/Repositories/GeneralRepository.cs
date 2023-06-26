@@ -71,4 +71,9 @@ public class GeneralRepository<TEntity> : IGeneralRepository<TEntity>
             return false;
         }
     }
+
+    public bool IsExist(Guid guid)
+    {
+        return GetByGuid(guid) != null;
+    }
 }

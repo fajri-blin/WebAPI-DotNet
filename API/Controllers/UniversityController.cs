@@ -1,6 +1,8 @@
 ﻿using API.Models;
 using API.Contracts;
+using API.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace API.Controllers;
 
@@ -17,9 +19,20 @@ public class UniversityController : GeneralController<IUniversityRepository, Uni
 
         if (universityName is null)
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<University>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "University Name Not Found"
+            });
         }
 
-        return Ok(universityName);
+        return Ok(new ResponseHandler<IEnumerable<University>>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = $"{name} Found",
+            Data = universityName
+        });
     }
 }
