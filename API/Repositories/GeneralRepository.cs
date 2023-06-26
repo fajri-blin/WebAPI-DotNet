@@ -28,7 +28,7 @@ public class GeneralRepository<TEntity> : IGeneralRepository<TEntity>
 
     }
 
-    public TEntity Create(TEntity entity)
+    public TEntity? Create(TEntity entity)
     {
         try
         {
@@ -56,16 +56,10 @@ public class GeneralRepository<TEntity> : IGeneralRepository<TEntity>
         }
     }
 
-    public bool Delete(Guid guid)
+    public bool Delete(TEntity entity)
     {
         try
         {
-            var entity = GetByGuid(guid);
-            if (entity is null)
-            {
-                return false;
-            }
-
             _context.Set<TEntity>().Remove(entity);
             _context.SaveChanges();
             return true;

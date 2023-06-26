@@ -3,6 +3,9 @@ using API.Contracts;
 using API.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using API.Services;
+using API.DTOs.University;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace API.Controllers;
 
@@ -10,75 +13,164 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class UniversityController : ControllerBase
 {
-    private readonly IUniversityRepository _universityRepository;
+    private readonly UniversityService _service;
 
-    public UniversityController(IUniversityRepository universityRepository)
+    public UniversityController(UniversityService service)
     {
-        _universityRepository = universityRepository;
+        _service = service;
     }
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        var entities = _universityRepository.GetAll();
+        var entities = _service.GetUniversity();
 
         if (!entities.Any())
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
         }
 
-        return Ok(entities);
+        return Ok(new ResponseHandler<IEnumerable<GetUniversityDto>>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Data Found",
+            Data = entities
+        });
     }
 
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
-        var entity = _universityRepository.GetByGuid(guid);
+        var entity = _service.GetUniversity(guid);
         if (entity is null)
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
         }
-        return Ok(entity);
+        return Ok(new ResponseHandler<GetUniversityDto>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Data Found",
+            Data = entity
+        });
     }
 
     [HttpGet("name/{name}")]
     public IActionResult GetByName(string name)
     {
-        var entity = _universityRepository.GetByName(name);
-        if(entity is null)
+        var entity = _service.GetUniversity(name);
+        if(!entity.Any())
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
         }
-        return Ok(entity);
+        return Ok(new ResponseHandler<IEnumerable<GetUniversityDto>>
+        {
+            Code =StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Data found",
+            Data = entity
+        });
     }
 
     [HttpPost]
-    public IActionResult Create(University university)
+    public IActionResult Create(CreateUniversityDto university)
     {
-        var created = _universityRepository.Create(university);
-        return Ok(created);
+        var created = _service.CreateUniversity(university);
+        if (created is null)
+        {
+            return BadRequest(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status400BadRequest,
+                Status = HttpStatusCode.BadRequest.ToString(),
+                Message = "Data not Created"
+            });
+        }
+        return Ok(new ResponseHandler<GetUniversityDto>
+        {
+            Code =StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Successfully created",
+            Data = created
+        });
+
     }
 
     [HttpPut]
-    public IActionResult Update(University university)
+    public IActionResult Update(UpdateUniversityDto university)
     {
-        var isUpdated = _universityRepository.Update(university);
-        if (!isUpdated)
+        var isUpdated = _service.UpdateUniversity(university);
+        if (isUpdated is -1)
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<UpdateUniversityDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
         }
-        return Ok(isUpdated);
+        if (isUpdated is 0)
+        {
+            return BadRequest(new ResponseHandler<UpdateUniversityDto>
+            {
+                Code = StatusCodes.Status500InternalServerError,
+                Status = HttpStatusCode.InternalServerError.ToString(),
+                Message = "Check your data"
+            });
+        }
+        return Ok(new ResponseHandler<UpdateUniversityDto>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Successfully updated"
+        });
     }
 
     [HttpDelete]
     public IActionResult Delete(Guid guid)
     {
-        var isDeleted = _universityRepository.Delete(guid);
-        if (!isDeleted)
+        var delete = _service.DeleteUniversity(guid);
+
+        if (delete is -1)
         {
-            return NotFound();
+            return NotFound(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Id not found"
+            });
         }
-        return Ok();
+        if (delete is 0)
+        {
+            return BadRequest(new ResponseHandler<GetUniversityDto>
+            {
+                Code = StatusCodes.Status500InternalServerError,
+                Status = HttpStatusCode.InternalServerError.ToString(),
+                Message = "Check connection to database"
+            });
+        }
+
+        return Ok(new ResponseHandler<GetUniversityDto>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Successfully deleted"
+        });
     }
 
 

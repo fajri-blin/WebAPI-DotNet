@@ -57,14 +57,4 @@ public class AccountController : ControllerBase
         return Ok(isUpdated);
     }
 
-    [HttpDelete]
-    public IActionResult Delete(Guid guid)
-    {
-        var isDeleted = _accountRepository.Delete(guid);
-        if (!isDeleted)
-        {
-            return NotFound();
-        }
-        return Ok();
-    }
 }

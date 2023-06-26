@@ -99,24 +99,4 @@ public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
         });
     }
 
-    [HttpDelete("{guid}")]
-    public IActionResult Delete(Guid guid)
-    {
-        var isDeleted = _entityRepository.Delete(guid);
-        if (!isDeleted)
-        {
-            return NotFound(new ResponseHandler<TEntity>
-            {
-                Code = StatusCodes.Status404NotFound,
-                Status = HttpStatusCode.NotFound.ToString(),
-                Message = "No Data Found"
-            });
-        }
-        return Ok(new ResponseHandler<TEntity>
-        {
-            Code = StatusCodes.Status200OK,
-            Status = HttpStatusCode.OK.ToString(),
-            Message = $"Data {typeof(TEntity).Name} Has Been Deleted",
-        });
-    }
 }

@@ -57,14 +57,5 @@ public class EducationController : ControllerBase
         return Ok(isUpdated);
     }
 
-    [HttpDelete]
-    public IActionResult Delete(Guid guid)
-    {
-        var isDeleted = _educationRepository.Delete(guid);
-        if (!isDeleted)
-        {
-            return NotFound();
-        }
-        return Ok();
-    }
+
 }

@@ -6,8 +6,8 @@ public interface IGeneralRepository<TEntity>
 {
     ICollection<TEntity> GetAll();
     TEntity? GetByGuid(Guid guid);
-    TEntity Create(TEntity entity);
+    TEntity? Create(TEntity entity);
     bool Update(TEntity entity);
-    bool Delete(Guid guid);
+    bool Delete(TEntity entity);
     bool IsExist(Guid guid);
 }

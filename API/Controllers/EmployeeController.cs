@@ -57,14 +57,5 @@ public class EmployeeController : ControllerBase
         return Ok(isUpdated);
     }
 
-    [HttpDelete]
-    public IActionResult Delete(Guid guid)
-    {
-        var isDeleted = _employeeRepository.Delete(guid);
-        if (!isDeleted)
-        {
-            return NotFound();
-        }
-        return Ok();
-    }
+ 
 }
