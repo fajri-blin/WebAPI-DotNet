@@ -29,10 +29,10 @@ public class EducationController : ControllerBase
     }
 
     [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid) 
+    public IActionResult GetByGuid(Guid guid)
     {
         var entity = _educationRepository.GetByGuid(guid);
-        if(entity is null)
+        if (entity is null)
         {
             return NotFound();
         }
@@ -50,7 +50,7 @@ public class EducationController : ControllerBase
     public IActionResult Update(Education education)
     {
         var isUpdated = _educationRepository.Update(education);
-        if(!isUpdated)
+        if (!isUpdated)
         {
             return NotFound();
         }
@@ -61,7 +61,7 @@ public class EducationController : ControllerBase
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _educationRepository.Delete(guid);
-        if(!isDeleted)
+        if (!isDeleted)
         {
             return NotFound();
         }

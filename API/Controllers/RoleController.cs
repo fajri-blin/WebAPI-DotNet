@@ -29,10 +29,10 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid) 
+    public IActionResult GetByGuid(Guid guid)
     {
         var entity = _roleRepository.GetByGuid(guid);
-        if(entity is null)
+        if (entity is null)
         {
             return NotFound();
         }
@@ -50,7 +50,7 @@ public class RoleController : ControllerBase
     public IActionResult Update(Role role)
     {
         var isUpdated = _roleRepository.Update(role);
-        if(!isUpdated)
+        if (!isUpdated)
         {
             return NotFound();
         }
@@ -61,7 +61,7 @@ public class RoleController : ControllerBase
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _roleRepository.Delete(guid);
-        if(!isDeleted)
+        if (!isDeleted)
         {
             return NotFound();
         }

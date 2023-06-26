@@ -29,10 +29,10 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid) 
+    public IActionResult GetByGuid(Guid guid)
     {
         var entity = _accountRepository.GetByGuid(guid);
-        if(entity is null)
+        if (entity is null)
         {
             return NotFound();
         }
@@ -50,7 +50,7 @@ public class AccountController : ControllerBase
     public IActionResult Update(Account account)
     {
         var isUpdated = _accountRepository.Update(account);
-        if(!isUpdated)
+        if (!isUpdated)
         {
             return NotFound();
         }
@@ -61,7 +61,7 @@ public class AccountController : ControllerBase
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _accountRepository.Delete(guid);
-        if(!isDeleted)
+        if (!isDeleted)
         {
             return NotFound();
         }

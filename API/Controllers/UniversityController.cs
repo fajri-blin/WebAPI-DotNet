@@ -10,32 +10,6 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class UniversityController : ControllerBase
 {
-<<<<<<< HEAD
-    public UniversityController(IUniversityRepository universityRepository) : base(universityRepository) { }
-
-    [HttpGet("name/{name}")]
-    public IActionResult GetByName(string name)
-    {
-        var universityName = _entityRepository.GetByName(name);
-
-        if (universityName is null)
-        {
-            return NotFound(new ResponseHandler<University>
-            {
-                Code = StatusCodes.Status404NotFound,
-                Status = HttpStatusCode.NotFound.ToString(),
-                Message = "University Name Not Found"
-            });
-        }
-
-        return Ok(new ResponseHandler<IEnumerable<University>>
-        {
-            Code = StatusCodes.Status200OK,
-            Status = HttpStatusCode.OK.ToString(),
-            Message = $"{name} Found",
-            Data = universityName
-        });
-=======
     private readonly IUniversityRepository _universityRepository;
 
     public UniversityController(IUniversityRepository universityRepository)
@@ -57,9 +31,20 @@ public class UniversityController : ControllerBase
     }
 
     [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid) 
+    public IActionResult GetByGuid(Guid guid)
     {
         var entity = _universityRepository.GetByGuid(guid);
+        if (entity is null)
+        {
+            return NotFound();
+        }
+        return Ok(entity);
+    }
+
+    [HttpGet("name/{name}")]
+    public IActionResult GetByName(string name)
+    {
+        var entity = _universityRepository.GetByName(name);
         if(entity is null)
         {
             return NotFound();
@@ -78,7 +63,7 @@ public class UniversityController : ControllerBase
     public IActionResult Update(University university)
     {
         var isUpdated = _universityRepository.Update(university);
-        if(!isUpdated)
+        if (!isUpdated)
         {
             return NotFound();
         }
@@ -89,11 +74,12 @@ public class UniversityController : ControllerBase
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _universityRepository.Delete(guid);
-        if(!isDeleted)
+        if (!isDeleted)
         {
             return NotFound();
         }
         return Ok();
->>>>>>> parent of ecb12b2 (Refactoring)
     }
+
+
 }

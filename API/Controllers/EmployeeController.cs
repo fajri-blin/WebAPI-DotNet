@@ -29,10 +29,10 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid) 
+    public IActionResult GetByGuid(Guid guid)
     {
         var entity = _employeeRepository.GetByGuid(guid);
-        if(entity is null)
+        if (entity is null)
         {
             return NotFound();
         }
@@ -50,7 +50,7 @@ public class EmployeeController : ControllerBase
     public IActionResult Update(Employee employee)
     {
         var isUpdated = _employeeRepository.Update(employee);
-        if(!isUpdated)
+        if (!isUpdated)
         {
             return NotFound();
         }
@@ -61,7 +61,7 @@ public class EmployeeController : ControllerBase
     public IActionResult Delete(Guid guid)
     {
         var isDeleted = _employeeRepository.Delete(guid);
-        if(!isDeleted)
+        if (!isDeleted)
         {
             return NotFound();
         }
