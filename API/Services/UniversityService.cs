@@ -66,12 +66,12 @@ public class UniversityService
         return toDto;
     }
 
-    public GetUniversityDto? CreateUniversity(CreateUniversityDto entity)
+    public GetUniversityDto? CreateUniversity(NewUniversityDto newEntity)
     {
         var entityUniversity = new University
         {
-            Code = entity.Code,
-            Name = entity.Name,
+            Code = newEntity.Code,
+            Name = newEntity.Name,
             Guid = new Guid(),
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now

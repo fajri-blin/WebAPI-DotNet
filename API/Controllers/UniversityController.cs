@@ -89,7 +89,7 @@ public class UniversityController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateUniversityDto university)
+    public IActionResult Create(NewUniversityDto university)
     {
         var created = _service.CreateUniversity(university);
         if (created is null)
