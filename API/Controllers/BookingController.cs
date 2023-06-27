@@ -22,7 +22,7 @@ public class BookingController : ControllerBase
     {
         var entities = _service.GetBooking();
 
-        if (!entities.Any())
+        if (entities is null)
         {
             return NotFound(new ResponseHandler<GetBookingDto>
             {

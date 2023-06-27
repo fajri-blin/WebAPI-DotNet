@@ -22,7 +22,7 @@ public class EducationController : ControllerBase
     {
         var entities = _service.GetEducation();
 
-        if (!entities.Any())
+        if (entities is null)
         {
             return NotFound(new ResponseHandler<GetEducationDto>
             {

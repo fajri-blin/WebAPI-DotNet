@@ -1,10 +1,10 @@
-﻿using API.Models;
+﻿/*using API.Models;
 using API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using API.Utilities;
 using System.Net;
 
-namespace API.Controllers;
+namespace API.Temp;
 
 public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
     where TIEntityRepository : IGeneralRepository<TEntity>
@@ -22,7 +22,7 @@ public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
     {
         var entities = _entityRepository.GetAll();
 
-        if (!entities.Any())
+        if (entities is null)
         {
             return NotFound(new ResponseHandler<TEntity>
             {
@@ -100,3 +100,4 @@ public class GeneralController<TIEntityRepository, TEntity> : ControllerBase
     }
 
 }
+*/

@@ -22,7 +22,7 @@ public class RoleController : ControllerBase
     {
         var entities = _service.GetRole();
 
-        if (!entities.Any())
+        if (entities is null)
         {
             return NotFound(new ResponseHandler<GetRoleDto>
             {

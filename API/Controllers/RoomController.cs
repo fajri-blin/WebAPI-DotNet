@@ -22,7 +22,7 @@ public class RoomController : ControllerBase
     {
         var entities = _service.GetRoom();
 
-        if (!entities.Any())
+        if (entities is null)
         {
             return NotFound(new ResponseHandler<GetRoomDto>
             {

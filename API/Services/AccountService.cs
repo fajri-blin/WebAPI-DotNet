@@ -27,7 +27,9 @@ public class AccountService
         {
             Guid = entity.Guid,
             IsDeleted = entity.IsDeleted,
-            IsUsed = entity.IsUsed
+            IsUsed = entity.IsUsed,
+            ExpiredTime = entity.ExpiredDate,
+            Password = entity.Password,
         }).ToList();
         return Dto;
     }
@@ -44,21 +46,25 @@ public class AccountService
         {
             Guid = entity.Guid,
             IsDeleted = entity.IsDeleted,
-            IsUsed = entity.IsUsed
+            IsUsed = entity.IsUsed,
+            ExpiredTime = entity.ExpiredDate
         };
 
         return toDto;
     }
 
-    public GetAccountDto? CreateAccount(NewAccountDto entity)
+    public GetAccountDto? CreateAccount(NewAccountDto newEntity)
     {
         var entityAccount = new Account
         {
-            Guid = new Guid(),
-            IsDeleted = entity.IsDeleted,
-            IsUsed = entity.IsUsed,
+            Guid = newEntity.Guid,
+            Password = newEntity.Password,
+            IsDeleted = newEntity.IsDeleted,
+            IsUsed = newEntity.IsUsed,
             CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            ModifiedDate = DateTime.Now,
+            ExpiredDate = newEntity.ExpiredTime,
+            
         };
 
         var created = _servicesRepository.Create(entityAccount);
@@ -70,8 +76,11 @@ public class AccountService
         var Dto = new GetAccountDto
         {
             Guid = created.Guid,
+            Password = created.Password,
             IsDeleted = created.IsDeleted,
             IsUsed = created.IsUsed,
+            ExpiredTime = created.ExpiredDate
+            
         };
 
         return Dto;
@@ -92,6 +101,7 @@ public class AccountService
             Guid = entity.Guid,
             IsUsed = entity.IsUsed,
             IsDeleted = entity.IsDeleted,
+            ExpiredDate = entity.ExpiredTime,
             ModifiedDate = DateTime.Now,
             CreatedDate = getEntity!.CreatedDate
         };
