@@ -3,7 +3,7 @@ using API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using API.Services;
 using API.DTOs.University;
-using API.Utilities;
+using API.Utilities.Handler;
 using System.Net;
 using API.DTOs.Account;
 using API.DTOs.Auth;

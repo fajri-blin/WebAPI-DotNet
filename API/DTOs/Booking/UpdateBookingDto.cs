@@ -1,4 +1,4 @@
-﻿using API.Utilities;
+﻿using API.Utilities.Enum;
 
 namespace API.DTOs.Booking;
 

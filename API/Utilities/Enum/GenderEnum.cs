@@ -1,4 +1,4 @@
-﻿namespace API.Utilities;
+﻿namespace API.Utilities.Enum;
 
 public enum GenderEnum
 {

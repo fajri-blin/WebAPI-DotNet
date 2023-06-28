@@ -64,7 +64,7 @@ public class EmployeeService
         return toDto;
     }
 
-    public string GenerateNIK(string nik)
+    public  string GenerateNIK(string nik)
     {
         var entities = _servicesRepository.GetAll();
         if (entities is null)
@@ -73,9 +73,10 @@ public class EmployeeService
         }
         if (nik == "")
         {
-            int LastNIK = Convert.ToInt32(entities.LastOrDefault().NIK);
-            return Convert.ToString(LastNIK + 1);
+            int lastNIK = Convert.ToInt32(entities.Last().NIK);
+            return (lastNIK + 1).ToString();
         }
+
         return nik;
     }
 

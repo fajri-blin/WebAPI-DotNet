@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.Utilities;
+namespace API.Utilities.Validation;
 
 public class ConfirmPasswordAttributes : ValidationAttribute
 {
@@ -15,7 +15,7 @@ public class ConfirmPasswordAttributes : ValidationAttribute
     {
         var passwordProperty = validationContext.ObjectType.GetProperty(_password);
 
-        if(passwordProperty != null)
+        if (passwordProperty != null)
         {
             var passwordValue = passwordProperty.GetValue(validationContext.ObjectInstance, null);
 
@@ -23,9 +23,9 @@ public class ConfirmPasswordAttributes : ValidationAttribute
             {
                 return new ValidationResult(ErrorMessage);
             }
-        }   
+        }
         return ValidationResult.Success;
 
     }
 }
-    
+

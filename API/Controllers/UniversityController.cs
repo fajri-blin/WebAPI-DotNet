@@ -1,6 +1,6 @@
 ﻿using API.Models;
 using API.Contracts;
-using API.Utilities;
+using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using API.Services;

@@ -6,27 +6,31 @@ using System.Security.Principal;
 using API.Utilities;
 using API.DTOs.Auth;
 using System.ComponentModel.DataAnnotations;
+using API.Data;
+using System.Transactions;
 
 namespace API.Services;
 
 public class AccountService
 {
-    private readonly IAccountRepository _servicesRepository;
+    private readonly IAccountRepository _accountRepository;
     private readonly IUniversityRepository _universityRepository;
     private readonly IEducationRepository _educationRepository;
     private readonly IEmployeeRepository _employeesRepository;
+    private readonly BookingDBContext _dBContext;
 
-    public AccountService(IAccountRepository repository, IUniversityRepository universityRepository, IEducationRepository educationRepository, IEmployeeRepository employeesRepository)
+    public AccountService(BookingDBContext dBContext,IAccountRepository repository, IUniversityRepository universityRepository, IEducationRepository educationRepository, IEmployeeRepository employeesRepository)
     {
-        _servicesRepository = repository;
+        _accountRepository = repository;
         _universityRepository = universityRepository;
         _educationRepository = educationRepository;
         _employeesRepository = employeesRepository;
+        _dBContext = dBContext;
     }
 
     public IEnumerable<GetAccountDto>? GetAccount()
     {
-        var entities = _servicesRepository.GetAll();
+        var entities = _accountRepository.GetAll();
         if(!entities.Any()) 
         {
             return null;
@@ -45,7 +49,7 @@ public class AccountService
 
     public GetAccountDto? GetAccount(Guid guid)
     {
-        var entity = _servicesRepository.GetByGuid(guid);
+        var entity = _accountRepository.GetByGuid(guid);
         if (entity is null)
         {
             return null;
@@ -61,80 +65,104 @@ public class AccountService
 
         return toDto;
     }
-
-    public GetRegisterDto? Register(NewRegisterDto newEntity)
+    public string GenerateNIK(string nik)
     {
-        var employee = new Employee {
-            Guid = new Guid(),
-            FirstName = newEntity.FirstName,
-            LastName = newEntity.LastName ?? "",
-            Gender = newEntity.Gender,
-            HiringDate = newEntity.HiringDate,
-            Email = newEntity.Email,
-            NIK = EmployeeService.GenerateNIK(newEntity.NIK),
-            PhoneNumber = newEntity.PhoneNumber,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now,
-        };
-
-        var createdEmployee = _employeesRepository.Create(employee);
-        if (createdEmployee is null)
+        var entities = _employeesRepository.GetAll();
+        if (entities is null)
         {
-            return null;
+            return "11111";
         }
 
-        var account = new Account{
-            Guid = employee.Guid,
-            Password = Hashing.HashPassword(newEntity.Password),
-            IsDeleted = false,
-            IsUsed = true,
-            OTP = 0,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now,
-            ExpiredDate = new DateTime(0000, 0, 0),
-        };
-        var createdAccount = _servicesRepository.Create(account);
-        if (createdAccount is null)
+        if (string.IsNullOrEmpty(nik))
         {
-            return null;
+            if (int.TryParse(entities.Last().NIK, out int lastNIK))
+            {
+                return (lastNIK + 1).ToString();
+            }
         }
 
-        var university = new University
-        {
-            Code = newEntity.UniversityCode,
-            Name = newEntity.UniversityName,
-            Guid = new Guid(),
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now,
-        };
-        var createdUniversity = _universityRepository.Create(university);
-        if (createdUniversity is null)
-        {
-            return null;
-        }
-        var education = new Education
-        {
-            Guid = new Guid(),
-            Degree = newEntity.Degree,
-            Major = newEntity.Major,
-            GPA = newEntity.GPA,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now,
-        };
-        var createdEducation = _educationRepository.Create(education);
-        if (createdEducation is null)
-        {
-            return null;
-        }
-
-        var dto = new GetRegisterDto{
-            Guid = createdAccount.Guid,
-            Email = createdEmployee.Email,
-        };
-        return dto;
+        return nik;
     }
 
+    /*    public int ChangePassword(ChangePassword changePassword)
+        {
+            var IsExist = _employeesRepository.
+        }
+    */
+    public GetRegisterDto? Register(NewRegisterDto newEntity)
+    {
+        using var transaction = _dBContext.Database.BeginTransaction();
+        try
+        {
+            var employee = new Employee
+            {
+                Guid = new Guid(),
+                FirstName = newEntity.FirstName,
+                LastName = newEntity.LastName ?? "",
+                Gender = newEntity.Gender,
+                HiringDate = newEntity.HiringDate,
+                Email = newEntity.Email,
+                NIK = GenerateNIK(newEntity.NIK),
+                PhoneNumber = newEntity.PhoneNumber,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+            };
+            _employeesRepository.Create(employee);
 
+            var account = new Account
+            {
+                Guid = employee.Guid,
+                Password = Hashing.HashPassword(newEntity.Password),
+                IsDeleted = false,
+                IsUsed = false,
+                OTP = 0,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                ExpiredDate = DateTime.Now.AddYears(5),
+            };
+            _accountRepository.Create(account);
+
+            var universityEntity = _universityRepository.GetByCode(newEntity.UniversityCode);
+            if (universityEntity == null)
+            {
+                var university = new University
+                {
+                    Code = newEntity.UniversityCode,
+                    Name = newEntity.UniversityName,
+                    Guid = new Guid(),
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                };
+                universityEntity = _universityRepository.Create(university);
+            }
+
+            var education = new Education
+            {
+                Guid = employee.Guid,
+                Degree = newEntity.Degree,
+                Major = newEntity.Major,
+                GPA = newEntity.GPA,
+                UniversityGuid = universityEntity.Guid,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+            };
+            _educationRepository.Create(education);
+
+            var dto = new GetRegisterDto
+            {
+                Guid = employee.Guid,
+                Email = employee.Email,
+            };
+
+            transaction.Commit();
+            return dto;
+        }
+        catch
+        {
+            transaction.Rollback();
+            return null;
+        }
+    }
 
 
     public GetAccountDto? CreateAccount(NewAccountDto newEntity)
@@ -152,7 +180,7 @@ public class AccountService
             
         };
 
-        var created = _servicesRepository.Create(entityAccount);
+        var created = _accountRepository.Create(entityAccount);
         if (created is null)
         {
             return null;
@@ -173,13 +201,13 @@ public class AccountService
 
     public int UpdateAccount(UpdateAccountDto entity) 
     {
-        var isExist = _servicesRepository.IsExist(entity.Guid);
+        var isExist = _accountRepository.IsExist(entity.Guid);
         if (!isExist)
         {
             return -1;
         }
 
-        var getEntity = _servicesRepository.GetByGuid(entity.Guid);
+        var getEntity = _accountRepository.GetByGuid(entity.Guid);
 
         var account = new Account
         {
@@ -192,7 +220,7 @@ public class AccountService
             CreatedDate = getEntity!.CreatedDate
         };
 
-        var isUpdate = _servicesRepository.Update(account);
+        var isUpdate = _accountRepository.Update(account);
         if (!isUpdate)
         {
             return 0;
@@ -203,14 +231,14 @@ public class AccountService
 
     public int DeleteAccount(Guid guid)
     {
-        var isExist = (_servicesRepository.IsExist(guid));
+        var isExist = (_accountRepository.IsExist(guid));
         if (!isExist)
         {
             return -1;
         }
 
-        var account = _servicesRepository.GetByGuid(guid);
-        var isDelete = _servicesRepository.Delete(account!);
+        var account = _accountRepository.GetByGuid(guid);
+        var isDelete = _accountRepository.Delete(account!);
 
         if (!isDelete)
         {

@@ -1,4 +1,4 @@
-﻿using API.Utilities;
+﻿using API.Utilities.Validation;
 
 namespace API.DTOs.Account;
 

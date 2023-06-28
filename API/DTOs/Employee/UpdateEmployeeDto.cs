@@ -1,4 +1,4 @@
-﻿using API.Utilities;
+﻿using API.Utilities.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.DTOs.Employee;

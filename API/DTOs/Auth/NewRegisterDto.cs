@@ -1,4 +1,5 @@
-﻿using API.Utilities;
+﻿using API.Utilities.Validation;
+using API.Utilities.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.DTOs.Auth;
@@ -18,6 +19,9 @@ public class NewRegisterDto
 
     [Required]
     public DateTime HiringDate { get; set; }
+
+    public string NIK { get; set; }
+
 
     [Required]
     [EmailAddress]
@@ -47,6 +51,7 @@ public class NewRegisterDto
     [Required]
     [PasswordPolicy]
     public string Password { get; set; }
+
     [Required]
     [ConfirmPasswordAttributes("Password", ErrorMessage = "Passwords do not match.")]
     public string ConfirmPassword { get; set; }

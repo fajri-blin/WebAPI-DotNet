@@ -1,7 +1,7 @@
 ﻿using API.Contracts;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Utilities;
+namespace API.Utilities.Validation;
 
 // This used to check if Email or Phone Number is Duplicated with existing Data in Table Employee
 public class EmailandPhoneNumberPolicyAttribute : ValidationAttribute
@@ -32,7 +32,7 @@ public class EmailandPhoneNumberPolicyAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        return (entity.Guid == guidPropertyValue ? ValidationResult.Success : 
+        return (entity.Guid == guidPropertyValue ? ValidationResult.Success :
                                                 new ValidationResult($"{_propertyName} '{value}' already exists."))!;
     }
 }
