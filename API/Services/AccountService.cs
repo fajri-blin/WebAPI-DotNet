@@ -4,7 +4,7 @@ using API.DTOs.University;
 using API.Models;
 using System.Security.Principal;
 using API.Utilities;
-using API.DTOs.Register;
+using API.DTOs.Auth;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.Services;
@@ -67,38 +67,18 @@ public class AccountService
         var employee = new Employee {
             Guid = new Guid(),
             FirstName = newEntity.FirstName,
-            LastName = newEntity.LastName,
+            LastName = newEntity.LastName ?? "",
             Gender = newEntity.Gender,
             HiringDate = newEntity.HiringDate,
             Email = newEntity.Email,
+            NIK = EmployeeService.GenerateNIK(newEntity.NIK),
             PhoneNumber = newEntity.PhoneNumber,
-        };
-        var createdEmployee = _employeesRepository.Create(employee);
-        if (createdEmployee is null)
-        {
-            return null;
-        }
-
-        var university = new University{
-            Code = newEntity.UniversityCode,
-            Name = newEntity.UniversityName,
-            Guid = new Guid(),
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now,
         };
-        var createdUniversity = _universityRepository.Create(university);
-        if (createdUniversity is null)
-        {
-            return null;
-        }
-        var education = new Education{
-            Guid = new Guid(),
-            Degree = newEntity.Degree,
-            Major = newEntity.Major,
-            GPA = newEntity.GPA,
-        };
-        var createdEducation = _educationRepository.Create(education);
-        if (createdEducation is null)
+
+        var createdEmployee = _employeesRepository.Create(employee);
+        if (createdEmployee is null)
         {
             return null;
         }
@@ -119,26 +99,39 @@ public class AccountService
             return null;
         }
 
+        var university = new University
+        {
+            Code = newEntity.UniversityCode,
+            Name = newEntity.UniversityName,
+            Guid = new Guid(),
+            CreatedDate = DateTime.Now,
+            ModifiedDate = DateTime.Now,
+        };
+        var createdUniversity = _universityRepository.Create(university);
+        if (createdUniversity is null)
+        {
+            return null;
+        }
+        var education = new Education
+        {
+            Guid = new Guid(),
+            Degree = newEntity.Degree,
+            Major = newEntity.Major,
+            GPA = newEntity.GPA,
+            CreatedDate = DateTime.Now,
+            ModifiedDate = DateTime.Now,
+        };
+        var createdEducation = _educationRepository.Create(education);
+        if (createdEducation is null)
+        {
+            return null;
+        }
+
         var dto = new GetRegisterDto{
             Guid = createdAccount.Guid,
             Email = createdEmployee.Email,
         };
         return dto;
-
-
-        // Check if the email is already registered
-        // var email = _employeesRepository.GetAll();
-        // var isEmailExist = email.Any(x => x.Email == newEntity.Email);
-        // if (isEmailExist)
-        // {
-        //     return null;
-        // }
-
-        // Generate NIK attribute using the EmployeeService
-
-        // Create an account entity
-
-        // Save the account entity to the repository
     }
 
 

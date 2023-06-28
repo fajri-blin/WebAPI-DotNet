@@ -1,6 +1,6 @@
 ﻿using API.Utilities;
 
-namespace API.DTOs.Register;
+namespace API.DTOs.Auth;
 
 public class GetRegisterDto
 {

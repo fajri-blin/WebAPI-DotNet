@@ -6,7 +6,7 @@ using API.DTOs.University;
 using API.Utilities;
 using System.Net;
 using API.DTOs.Account;
-using API.DTOs.Register;
+using API.DTOs.Auth;
 
 namespace API.Controllers;
 
