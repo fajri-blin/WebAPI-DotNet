@@ -2,6 +2,7 @@
 using API.DTOs.Employee ;
 
 using API.Models;
+using API.Utilities;
 using System.Security.Principal;
 
 namespace API.Services;
@@ -26,7 +27,7 @@ public class EmployeeService
         var Dto = entities.Select(entity => new GetEmployeeDto
         {
             Guid = entity.Guid,
-            Nik = entity.NIK,
+            NIK = entity.NIK,
             BirthDate = entity.BirthDate,
             Email = entity.Email,
             FirstName = entity.FirstName,
@@ -50,7 +51,7 @@ public class EmployeeService
         var toDto = new GetEmployeeDto
         {
             Guid = entity.Guid,
-            Nik = entity.NIK,
+            NIK = entity.NIK,
             BirthDate = entity.BirthDate,
             Email = entity.Email,
             FirstName = entity.FirstName,
@@ -61,6 +62,21 @@ public class EmployeeService
         };
 
         return toDto;
+    }
+
+    public string GenerateNIK(string nik)
+    {
+        var entities = _servicesRepository.GetAll();
+        if (entities is null)
+        {
+            return "11111";
+        }
+        if (nik == "")
+        {
+            int LastNIK = Convert.ToInt32(entities.LastOrDefault().NIK);
+            return Convert.ToString(LastNIK + 1);
+        }
+        return nik;
     }
 
     public GetEmployeeDto? CreateEmployee(NewEmployeeDto newEntity)
@@ -75,7 +91,7 @@ public class EmployeeService
             HiringDate = newEntity.HiringDate,
             Email = newEntity.Email,
             BirthDate = newEntity.BirthDate,
-            NIK = newEntity.NIK,
+            NIK = GenerateNIK(newEntity.NIK),
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
         };
@@ -89,7 +105,7 @@ public class EmployeeService
         var Dto = new GetEmployeeDto
         {
             Guid = entity.Guid,
-            Nik = entity.NIK,
+            NIK = entity.NIK,
             BirthDate = entity.BirthDate,
             Email = entity.Email,
             FirstName = entity.FirstName,

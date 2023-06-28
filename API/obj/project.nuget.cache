@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "lq5ccUjbsryf0SmQsujfvCMjRrakVJTne4FTieX3vlEoK6c5EzaA+ul4I5bw2+0uTaAMuW1PAvGenST/hP2EuA==",
+  "dgSpecHash": "g20ue1M3nL8OjFnABgwyyve9N2gTKHgYrD8raUqtVGfhXhk67dtuu/fbxo7GH4vjAl7h8f3QzM+N0j0/n2EEmQ==",
   "success": true,
   "projectFilePath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Fajri\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Fajri\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Fajri\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Fajri\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

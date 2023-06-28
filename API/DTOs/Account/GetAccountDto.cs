@@ -7,5 +7,7 @@ public class GetAccountDto
     public bool IsDeleted { get; set; }
     public bool IsUsed { get; set; }
 
+    public int OTP { get; set; }
+
     public DateTime? ExpiredTime { get; set; }
 }

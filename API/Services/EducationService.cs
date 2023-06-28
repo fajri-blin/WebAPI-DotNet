@@ -61,7 +61,7 @@ public class EducationService
             Guid = new Guid(),
             Major = newEntity.Major,
             Degree = newEntity.Degree,
-            GPA = newEntity.Gpa,
+            GPA = newEntity.GPA,
             UniversityGuid = newEntity.UniversityGuid,
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
@@ -100,7 +100,7 @@ public class EducationService
             Guid = updateEntity.Guid,
             Major = updateEntity.Major,
             Degree = updateEntity.Degree,
-            GPA = updateEntity.Gpa,
+            GPA = updateEntity.GPA,
             UniversityGuid = updateEntity.UniversityGuid,
             ModifiedDate = DateTime.Now,
             CreatedDate = getEntity!.CreatedDate

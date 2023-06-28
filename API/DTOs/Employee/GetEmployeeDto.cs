@@ -5,7 +5,7 @@ namespace API.DTOs.Employee;
 public class GetEmployeeDto
 {
     public Guid Guid { get; set; }
-    public string Nik { get; set; }
+    public string NIK { get; set; }
     public string FirstName { get; set; }
     public string? LastName { get; set; }
     public DateTime BirthDate { get; set; }

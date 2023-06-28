@@ -6,6 +6,7 @@ using API.DTOs.University;
 using API.Utilities;
 using System.Net;
 using API.DTOs.Account;
+using API.DTOs.Register;
 
 namespace API.Controllers;
 
@@ -88,6 +89,28 @@ public class AccountController : ControllerBase
             Data = created
         });
     }
+
+    [HttpPost("Register")]
+    public IActionResult Register(NewRegisterDto account)
+    {
+        var created = _service.Register(account);
+        if (created is null)
+        {
+            return BadRequest(new ResponseHandler<GetRegisterDto>
+            {
+                Code = StatusCodes.Status400BadRequest,
+                Status = HttpStatusCode.BadRequest.ToString(),
+                Message = "Data not Created"
+            });
+        }
+        return Ok(new ResponseHandler<GetRegisterDto>{
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Successfully created",
+            Data = created
+        });
+    }
+    
 
     [HttpPut]
     public IActionResult Update(UpdateAccountDto account)

@@ -157,6 +157,14 @@ public class UniversityController : ControllerBase
         }
         if (delete is 0)
         {
+            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseHandler<GetUniversityDto>()
+            {
+                Code = StatusCodes.Status500InternalServerError,
+                Status = HttpStatusCode.InternalServerError.ToString(),
+                Message = "Error retrieving data from database"
+            });
+
+
             return BadRequest(new ResponseHandler<GetUniversityDto>
             {
                 Code = StatusCodes.Status500InternalServerError,
