@@ -119,7 +119,7 @@ public class BookingController : ControllerBase
     {
         var entities = _booking.GetBookingToday();
 
-        if (entities is null)
+        if (entities is null || entities.Count() == 0)
         {
             return NotFound(new ResponseHandler<GetBookingTodayDto>
             {
