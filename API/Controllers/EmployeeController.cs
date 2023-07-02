@@ -3,11 +3,14 @@ using API.Services;
 using API.DTOs.Employee;
 using API.Utilities.Handler;
 using System.Net;
+using API.Utilities.Enum;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
 public class EmployeeController : ControllerBase
 {
     private readonly EmployeeService _service;
@@ -56,6 +59,53 @@ public class EmployeeController : ControllerBase
         }
 
         return Ok(new ResponseHandler<GetEmployeeDto>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Data Found",
+            Data = entity
+        });
+    }
+
+    [HttpGet("GetEmployeeMaster")]
+    public IActionResult GetEmployeeMaster()
+    {
+        var entities = _service.GetEmployeeMasters();
+
+        if (entities is null)
+        {
+            return NotFound(new ResponseHandler<GetEmployeeMasterDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
+        }
+
+        return Ok(new ResponseHandler<IEnumerable<GetEmployeeMasterDto>>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Data Found",
+            Data = entities
+        });
+    }
+
+    [HttpGet("GetEmployeeMaster/{guid}")]
+    public IActionResult GetEmployeeMasterByGuid(Guid guid)
+    {
+        var entity = _service.GetEmployeeMastersByGuid(guid);
+        if (entity is null)
+        {
+            return NotFound(new ResponseHandler<GetEmployeeMasterDto>
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data not found"
+            });
+        }
+
+        return Ok(new ResponseHandler<GetEmployeeMasterDto>
         {
             Code = StatusCodes.Status200OK,
             Status = HttpStatusCode.OK.ToString(),

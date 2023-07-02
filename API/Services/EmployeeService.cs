@@ -2,23 +2,31 @@
 using API.DTOs.Employee ;
 
 using API.Models;
+using API.Repositories;
 using API.Utilities;
+using API.Utilities.Handler;
 using System.Security.Principal;
 
 namespace API.Services;
 
 public class EmployeeService
 {
-    private readonly IEmployeeRepository _servicesRepository;
+    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IEducationRepository _educationRepository;
+    private readonly IUniversityRepository _universityRepository;
 
-    public EmployeeService(IEmployeeRepository entityRepository)
+    public EmployeeService(IEmployeeRepository entityRepository, 
+                           IEducationRepository educationRepository,
+                           IUniversityRepository universityRepository)
     {
-        _servicesRepository = entityRepository;
+        _employeeRepository = entityRepository;
+        _educationRepository = educationRepository;
+        _universityRepository = universityRepository;
     }
 
     public IEnumerable<GetEmployeeDto>? GetEmployee()
     {
-        var entities = _servicesRepository.GetAll();
+        var entities = _employeeRepository.GetAll();
         if(!entities.Any()) 
         {
             return null;
@@ -42,7 +50,7 @@ public class EmployeeService
 
     public GetEmployeeDto? GetEmployee(Guid guid)
     {
-        var entity = _servicesRepository.GetByGuid(guid);
+        var entity = _employeeRepository.GetByGuid(guid);
         if (entity is null)
         {
             return null;
@@ -64,21 +72,62 @@ public class EmployeeService
         return toDto;
     }
 
-    public  string GenerateNIK(string nik)
+    public IEnumerable<GetEmployeeMasterDto>? GetEmployeeMasters()
     {
-        var entities = _servicesRepository.GetAll();
-        if (entities is null)
+        var Dto = (from employee in _employeeRepository.GetAll()
+                       join education in _educationRepository.GetAll() on employee.Guid equals education.Guid
+                       join university in _universityRepository.GetAll() on education.UniversityGuid equals university.Guid into universityGroup
+                       from university in universityGroup.DefaultIfEmpty()
+                       select new GetEmployeeMasterDto
+                       {
+                           EmployeeGuid = employee.Guid,
+                           NIK = employee.NIK,
+                           FullName = $"{employee.FirstName} {employee.LastName}",
+                           BirthDate = employee.BirthDate,
+                           Gender = employee.Gender,
+                           Email = employee.Email,
+                           PhoneNumber = employee.PhoneNumber,
+                           Major = education.Major,
+                           Degree = education.Degree,
+                           GPA = education. GPA,
+                           UniversityName = university != null ? university.Name : null
+                       }).ToList();
+        return Dto;
+    }
+    public GetEmployeeMasterDto? GetEmployeeMastersByGuid(Guid guid)
+    {
+        var employee = _employeeRepository.GetByGuid(guid);
+        if (employee == null) return null;
+
+        var education = _educationRepository.GetByGuid(employee.Guid);
+        if (education == null) return null;
+
+        University? university = null;
+        if (education.UniversityGuid.HasValue)
         {
-            return "11111";
-        }
-        if (nik == "")
-        {
-            int lastNIK = Convert.ToInt32(entities.Last().NIK);
-            return (lastNIK + 1).ToString();
+            university = _universityRepository.GetByGuid(education.UniversityGuid.Value);
         }
 
-        return nik;
+        var Dto = new GetEmployeeMasterDto
+        {
+            EmployeeGuid = employee.Guid,
+            NIK = employee.NIK,
+            FullName = $"{employee.FirstName} {employee.LastName}",
+            BirthDate = employee.BirthDate,
+            Gender = employee.Gender,
+            Email = employee.Email,
+            PhoneNumber = employee.PhoneNumber,
+            Major = education.Major,
+            Degree = education.Degree,
+            GPA = education.GPA,
+            UniversityName = university != null ? university.Name : null
+        };
+
+        return Dto;
     }
+
+
+
 
     public GetEmployeeDto? CreateEmployee(NewEmployeeDto newEntity)
     {
@@ -92,12 +141,12 @@ public class EmployeeService
             HiringDate = newEntity.HiringDate,
             Email = newEntity.Email,
             BirthDate = newEntity.BirthDate,
-            NIK = GenerateNIK(newEntity.NIK),
+            NIK = GenerateHandler.GenerateNIK(_employeeRepository, newEntity.NIK),
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
         };
 
-        var created = _servicesRepository.Create(entity);
+        var created = _employeeRepository.Create(entity);
         if (created is null)
         {
             return null;
@@ -121,13 +170,13 @@ public class EmployeeService
 
     public int UpdateEmployee(UpdateEmployeeDto updateEntity) 
     {
-        var isExist = _servicesRepository.IsExist(updateEntity.Guid);
+        var isExist = _employeeRepository.IsExist(updateEntity.Guid);
         if (!isExist)
         {
             return -1;
         }
 
-        var getEntity = _servicesRepository.GetByGuid(updateEntity.Guid);
+        var getEntity = _employeeRepository.GetByGuid(updateEntity.Guid);
 
         var entity = new Employee
         {
@@ -144,7 +193,7 @@ public class EmployeeService
             CreatedDate = getEntity!.CreatedDate
         };
 
-        var isUpdate = _servicesRepository.Update(entity);
+        var isUpdate = _employeeRepository.Update(entity);
         if (!isUpdate)
         {
             return 0;
@@ -155,14 +204,14 @@ public class EmployeeService
 
     public int DeleteEmployee(Guid guid)
     {
-        var isExist = (_servicesRepository.IsExist(guid));
+        var isExist = (_employeeRepository.IsExist(guid));
         if (!isExist)
         {
             return -1;
         }
 
-        var account = _servicesRepository.GetByGuid(guid);
-        var isDelete = _servicesRepository.Delete(account!);
+        var account = _employeeRepository.GetByGuid(guid);
+        var isDelete = _employeeRepository.Delete(account!);
 
         if (!isDelete)
         {

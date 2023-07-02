@@ -4,7 +4,7 @@ namespace API.Contracts;
 
 public interface IGeneralRepository<TEntity>
 {
-    ICollection<TEntity> GetAll();
+    ICollection<TEntity>? GetAll();
     TEntity? GetByGuid(Guid guid);
     TEntity? Create(TEntity entity);
     bool Update(TEntity entity);

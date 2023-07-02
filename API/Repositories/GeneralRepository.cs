@@ -2,6 +2,7 @@
 using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
@@ -15,17 +16,17 @@ public class GeneralRepository<TEntity> : IGeneralRepository<TEntity>
         _context = context;
     }
 
-    public ICollection<TEntity> GetAll()
+    public ICollection<TEntity>? GetAll()
     {
         return _context.Set<TEntity>().ToList();
     }
 
     public TEntity? GetByGuid(Guid guid)
     {
+        //First Options
         var entity = _context.Set<TEntity>().Find(guid);
         _context.ChangeTracker.Clear();
         return entity;
-
     }
 
     public TEntity? Create(TEntity entity)

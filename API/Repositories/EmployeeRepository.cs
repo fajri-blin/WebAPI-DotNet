@@ -12,8 +12,13 @@ public class EmployeeRepository : GeneralRepository<Employee>, IEmployeeReposito
     {
         return _context.Set<Employee>().FirstOrDefault(e => e.PhoneNumber == data || e.Email == data);
     }
-    public IEnumerable<Employee>? GetByEmail(string email)
+    public IEnumerable<Employee>? GetsByEmail(string email)
     {
         return _context.Set<Employee>().Where(E => E.Email == email);
+    }
+
+    public Employee? CheckEmail(string email)
+    {
+        return _context.Set<Employee>().FirstOrDefault(e => e.Email == email);
     }
 }

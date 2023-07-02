@@ -83,7 +83,7 @@ namespace API.Migrations
                     password = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     is_deleted = table.Column<bool>(type: "bit", nullable: false),
                     otp = table.Column<int>(type: "int", nullable: true),
-                    is_used = table.Column<bool>(type: "bit", nullable: true),
+                    is_used = table.Column<bool>(type: "bit", nullable: false),
                     expired_time = table.Column<DateTime>(type: "datetime2", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -108,7 +108,7 @@ namespace API.Migrations
                     end_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     remarks = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     status = table.Column<int>(type: "int", nullable: false),
-                    room_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    room_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     employee_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -126,8 +126,7 @@ namespace API.Migrations
                         name: "FK_tb_tr_bookings_tb_m_rooms_room_guid",
                         column: x => x.room_guid,
                         principalTable: "tb_m_rooms",
-                        principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "guid");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,7 +137,7 @@ namespace API.Migrations
                     major = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     degree = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     gpa = table.Column<double>(type: "float", nullable: false),
-                    university_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    university_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -156,7 +155,7 @@ namespace API.Migrations
                         column: x => x.university_guid,
                         principalTable: "tb_m_universities",
                         principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,7 +164,7 @@ namespace API.Migrations
                 {
                     guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     account_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    role_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    role_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -183,7 +182,7 @@ namespace API.Migrations
                         column: x => x.role_guid,
                         principalTable: "tb_m_roles",
                         principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

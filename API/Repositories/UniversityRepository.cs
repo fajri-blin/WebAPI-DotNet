@@ -14,8 +14,8 @@ public class UniversityRepository : GeneralRepository<University>, IUniversityRe
         return _context.Set<University>().Where(x => x.Name == name);
     }
 
-    public University? GetByCode(string code)
+    public University? GetByCodeandName(string code, string name)
     {
-        return _context.Set<University>().FirstOrDefault(University => University.Code.ToLower() == code.ToLower());
+        return _context.Set<University>().FirstOrDefault(University => University.Code.ToLower() == code.ToLower() && University.Name.ToLower() == name.ToLower());
     }
 }

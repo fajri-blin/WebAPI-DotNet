@@ -22,7 +22,7 @@ namespace API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("API.Models.Tables.Account", b =>
+            modelBuilder.Entity("API.Models.Account", b =>
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier")
@@ -32,7 +32,7 @@ namespace API.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_date");
 
-                    b.Property<DateTime?>("ExpiredDate")
+                    b.Property<DateTime?>("ExpiredTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("expired_time");
 
@@ -40,7 +40,7 @@ namespace API.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("is_deleted");
 
-                    b.Property<bool?>("IsUsed")
+                    b.Property<bool>("IsUsed")
                         .HasColumnType("bit")
                         .HasColumnName("is_used");
 
@@ -62,7 +62,7 @@ namespace API.Migrations
                     b.ToTable("tb_m_accounts");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.AccountRole", b =>
+            modelBuilder.Entity("API.Models.AccountRole", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace API.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("modified_date");
 
-                    b.Property<Guid>("RoleGuid")
+                    b.Property<Guid?>("RoleGuid")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("role_guid");
 
@@ -94,7 +94,7 @@ namespace API.Migrations
                     b.ToTable("tb_tr_account_roles");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Booking", b =>
+            modelBuilder.Entity("API.Models.Booking", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("remarks");
 
-                    b.Property<Guid>("RoomGuid")
+                    b.Property<Guid?>("RoomGuid")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("room_guid");
 
@@ -142,7 +142,7 @@ namespace API.Migrations
                     b.ToTable("tb_tr_bookings");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Education", b =>
+            modelBuilder.Entity("API.Models.Education", b =>
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier")
@@ -170,7 +170,7 @@ namespace API.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("modified_date");
 
-                    b.Property<Guid>("UniversityGuid")
+                    b.Property<Guid?>("UniversityGuid")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("university_guid");
 
@@ -181,7 +181,7 @@ namespace API.Migrations
                     b.ToTable("tb_m_educations");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Employee", b =>
+            modelBuilder.Entity("API.Models.Employee", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace API.Migrations
                     b.ToTable("tb_m_employees");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Role", b =>
+            modelBuilder.Entity("API.Models.Role", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -265,7 +265,7 @@ namespace API.Migrations
                     b.ToTable("tb_m_roles");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Room", b =>
+            modelBuilder.Entity("API.Models.Room", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -298,7 +298,7 @@ namespace API.Migrations
                     b.ToTable("tb_m_rooms");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.University", b =>
+            modelBuilder.Entity("API.Models.University", b =>
                 {
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
@@ -328,80 +328,76 @@ namespace API.Migrations
                     b.ToTable("tb_m_universities");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Account", b =>
+            modelBuilder.Entity("API.Models.Account", b =>
                 {
-                    b.HasOne("API.Models.Tables.Employee", "Employee")
+                    b.HasOne("API.Models.Employee", "Employee")
                         .WithOne("Account")
-                        .HasForeignKey("API.Models.Tables.Account", "Guid")
+                        .HasForeignKey("API.Models.Account", "Guid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.AccountRole", b =>
+            modelBuilder.Entity("API.Models.AccountRole", b =>
                 {
-                    b.HasOne("API.Models.Tables.Account", "Account")
+                    b.HasOne("API.Models.Account", "Account")
                         .WithMany("AccountRoles")
                         .HasForeignKey("AccountGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Tables.Role", "Role")
+                    b.HasOne("API.Models.Role", "Role")
                         .WithMany("AccountRoles")
                         .HasForeignKey("RoleGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Account");
 
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Booking", b =>
+            modelBuilder.Entity("API.Models.Booking", b =>
                 {
-                    b.HasOne("API.Models.Tables.Employee", "Employee")
+                    b.HasOne("API.Models.Employee", "Employee")
                         .WithMany("Bookings")
                         .HasForeignKey("EmployeeGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Tables.Room", "Room")
+                    b.HasOne("API.Models.Room", "Room")
                         .WithMany("Bookings")
-                        .HasForeignKey("RoomGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomGuid");
 
                     b.Navigation("Employee");
 
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Education", b =>
+            modelBuilder.Entity("API.Models.Education", b =>
                 {
-                    b.HasOne("API.Models.Tables.Employee", "Employee")
+                    b.HasOne("API.Models.Employee", "Employee")
                         .WithOne("Education")
-                        .HasForeignKey("API.Models.Tables.Education", "Guid")
+                        .HasForeignKey("API.Models.Education", "Guid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Tables.University", "University")
+                    b.HasOne("API.Models.University", "University")
                         .WithMany("Educations")
                         .HasForeignKey("UniversityGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Employee");
 
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Account", b =>
+            modelBuilder.Entity("API.Models.Account", b =>
                 {
                     b.Navigation("AccountRoles");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Employee", b =>
+            modelBuilder.Entity("API.Models.Employee", b =>
                 {
                     b.Navigation("Account");
 
@@ -410,17 +406,17 @@ namespace API.Migrations
                     b.Navigation("Education");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Role", b =>
+            modelBuilder.Entity("API.Models.Role", b =>
                 {
                     b.Navigation("AccountRoles");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.Room", b =>
+            modelBuilder.Entity("API.Models.Room", b =>
                 {
                     b.Navigation("Bookings");
                 });
 
-            modelBuilder.Entity("API.Models.Tables.University", b =>
+            modelBuilder.Entity("API.Models.University", b =>
                 {
                     b.Navigation("Educations");
                 });

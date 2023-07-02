@@ -3,11 +3,14 @@ using API.Services;
 using API.DTOs.Room;
 using API.Utilities.Handler;
 using System.Net;
+using API.Utilities.Enum;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
 public class RoomController : ControllerBase
 {
     private readonly RoomService _service;

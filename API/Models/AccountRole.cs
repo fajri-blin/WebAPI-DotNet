@@ -11,7 +11,7 @@ public class AccountRole : BaseEntity
     public Guid AccountGuid { get; set; }
 
     [Column("role_guid")]
-    public Guid RoleGuid { get; set; }
+    public Guid? RoleGuid { get; set; }
 
     // Cardinality
     public Account? Account { get; set; }

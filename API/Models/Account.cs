@@ -20,7 +20,7 @@ public class Account : BaseEntity
     public bool IsUsed { get; set; }
 
     [Column("expired_time")]
-    public DateTime? ExpiredDate { get; set; }
+    public DateTime? ExpiredTime { get; set; }
 
     //Cardinality
 

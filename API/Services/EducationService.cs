@@ -8,16 +8,16 @@ namespace API.Services;
 
 public class EducationService
 {
-    private readonly IEducationRepository _servicesRepository;
+    private readonly IEducationRepository _educationRepository;
 
     public EducationService(IEducationRepository entityRepository)
     {
-        _servicesRepository = entityRepository;
+        _educationRepository = entityRepository;
     }
 
     public IEnumerable<GetEducationDto>? GetEducation()
     {
-        var entities = _servicesRepository.GetAll();
+        var entities = _educationRepository.GetAll();
         if(!entities.Any()) 
         {
             return null;
@@ -36,7 +36,7 @@ public class EducationService
 
     public GetEducationDto? GetEducation(Guid guid)
     {
-        var entity = _servicesRepository.GetByGuid(guid);
+        var entity = _educationRepository.GetByGuid(guid);
         if (entity is null)
         {
             return null;
@@ -67,7 +67,7 @@ public class EducationService
             ModifiedDate = DateTime.Now
         };
 
-        var created = _servicesRepository.Create(entity);
+        var created = _educationRepository.Create(entity);
         if (created is null)
         {
             return null;
@@ -87,13 +87,13 @@ public class EducationService
 
     public int UpdateEducation(UpdateEducationDto updateEntity) 
     {
-        var isExist = _servicesRepository.IsExist(updateEntity.Guid);
+        var isExist = _educationRepository.IsExist(updateEntity.Guid);
         if (!isExist)
         {
             return -1;
         }
 
-        var getEntity = _servicesRepository.GetByGuid(updateEntity.Guid);
+        var getEntity = _educationRepository.GetByGuid(updateEntity.Guid);
 
         var entity = new Education
         {
@@ -106,7 +106,7 @@ public class EducationService
             CreatedDate = getEntity!.CreatedDate
         };
 
-        var isUpdate = _servicesRepository.Update(entity);
+        var isUpdate = _educationRepository.Update(entity);
         if (!isUpdate)
         {
             return 0;
@@ -117,14 +117,14 @@ public class EducationService
 
     public int DeleteEducation(Guid guid)
     {
-        var isExist = (_servicesRepository.IsExist(guid));
+        var isExist = (_educationRepository.IsExist(guid));
         if (!isExist)
         {
             return -1;
         }
 
-        var account = _servicesRepository.GetByGuid(guid);
-        var isDelete = _servicesRepository.Delete(account!);
+        var account = _educationRepository.GetByGuid(guid);
+        var isDelete = _educationRepository.Delete(account!);
 
         if (!isDelete)
         {

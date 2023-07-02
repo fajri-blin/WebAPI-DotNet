@@ -17,7 +17,7 @@ public class Education : BaseEntity
     public double GPA { get; set; }
 
     [Column("university_guid")]
-    public Guid UniversityGuid { get; set; }
+    public Guid? UniversityGuid { get; set; }
 
     //Cardinality
     public University? University { get; set; }

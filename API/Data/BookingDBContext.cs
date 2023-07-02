@@ -42,7 +42,8 @@ public class BookingDBContext : DbContext
         modelBuilder.Entity<Role>()
             .HasMany(role => role.AccountRoles)
             .WithOne(account_role => account_role.Role)
-            .HasForeignKey(account_role => account_role.RoleGuid);
+            .HasForeignKey(account_role => account_role.RoleGuid)
+            .OnDelete(DeleteBehavior.SetNull);
 
         // Account - Account Role (One to Many)
         modelBuilder.Entity<Account>()
@@ -72,7 +73,8 @@ public class BookingDBContext : DbContext
         modelBuilder.Entity<University>()
             .HasMany(university => university.Educations)
             .WithOne(education => education.University)
-            .HasForeignKey(education => education.UniversityGuid);
+            .HasForeignKey(education => education.UniversityGuid)
+            .OnDelete(DeleteBehavior.SetNull);
 
         // Room - Booking (One to Many)
         modelBuilder.Entity<Room>()

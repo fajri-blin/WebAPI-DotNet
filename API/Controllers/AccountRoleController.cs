@@ -3,11 +3,15 @@ using API.Services;
 using API.DTOs.AccountRole;
 using API.Utilities.Handler;
 using System.Net;
+using API.Utilities.Enum;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+
+[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
 public class AccountRoleController : ControllerBase
 {
     private readonly AccountRoleService _service;

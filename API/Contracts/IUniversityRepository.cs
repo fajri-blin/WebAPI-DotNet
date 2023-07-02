@@ -6,5 +6,5 @@ public interface IUniversityRepository : IGeneralRepository<University>
 {
     IEnumerable<University> GetByName(string name);
 
-    University? GetByCode(string code);
+    University? GetByCodeandName(string code, string nama);
 }

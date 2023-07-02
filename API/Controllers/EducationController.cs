@@ -3,11 +3,14 @@ using API.Services;
 using API.DTOs.Education;
 using API.Utilities.Handler;
 using System.Net;
+using API.Utilities.Enum;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
 public class EducationController : ControllerBase
 {
     private readonly EducationService _service;

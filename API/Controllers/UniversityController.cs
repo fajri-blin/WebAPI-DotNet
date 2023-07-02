@@ -6,11 +6,14 @@ using System.Net;
 using API.Services;
 using API.DTOs.University;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
+using API.Utilities.Enum;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
 public class UniversityController : ControllerBase
 {
     private readonly UniversityService _service;
