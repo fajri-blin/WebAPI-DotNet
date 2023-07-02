@@ -1,17 +1,16 @@
 ﻿using API.Contracts;
 using Microsoft.IdentityModel.Tokens;
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace API.Utilities.Handler;
 
-public class TokenHandler : ITokenHandler
+public class TokenHandlers : ITokenHandlers
 {
     private readonly IConfiguration _configuration;
 
-    public TokenHandler(IConfiguration configuration)
+    public TokenHandlers(IConfiguration configuration)
     {
         _configuration = configuration;
     }

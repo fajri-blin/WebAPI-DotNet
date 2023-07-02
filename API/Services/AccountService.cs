@@ -24,7 +24,7 @@ public class AccountService
     private readonly IEmployeeRepository _employeesRepository;
     private readonly IAccountRoleRepository _accountRoleRepository;
     private readonly IRoleRepository _roleRepository;
-    private readonly ITokenHandler _tokenHandler;
+    private readonly ITokenHandlers _tokenHandler;
     private readonly IEmailHandler _emailHandler;
     private readonly BookingDBContext _dBContext;
 
@@ -37,7 +37,7 @@ public class AccountService
         IRoleRepository roleRepository,
         BookingDBContext dBContext,
         IEmailHandler emailHandler,
-        ITokenHandler tokenHandler)
+        ITokenHandlers tokenHandler)
     {
         _accountRepository = repository;
         _universityRepository = universityRepository;

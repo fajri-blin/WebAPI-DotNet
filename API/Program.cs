@@ -6,6 +6,9 @@ using API.Services;
 using API.Utilities.Handler;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +40,7 @@ builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<UniversityService>();
 
 // Add Service for token handler
-builder.Services.AddScoped<ITokenHandler, TokenHandler>();
+builder.Services.AddScoped<ITokenHandlers, TokenHandlers>();
 
 // Add Service for Email
 builder.Services.AddTransient<IEmailHandler, EmailHandler>(_ => new EmailHandler(
@@ -45,6 +48,24 @@ builder.Services.AddTransient<IEmailHandler, EmailHandler>(_ => new EmailHandler
     int.Parse(builder.Configuration["EmailService:SmtpPort"]),
     builder.Configuration["EmailService:FromEmailAddress"]
 ));
+
+// Jwt Configuration
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(options =>
+       {
+           options.RequireHttpsMetadata = false; // For development
+           options.SaveToken = true;
+           options.TokenValidationParameters = new TokenValidationParameters()
+           {
+               ValidateIssuer = true,
+               ValidIssuer = builder.Configuration["JWTService:Issuer"],
+               ValidateAudience = true,
+               ValidAudience = builder.Configuration["JWTService:Audience"],
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTService:Key"])),
+               ValidateLifetime = true,
+               ClockSkew = TimeSpan.Zero
+           };
+       });
 
 // CORS Configuration
 builder.Services.AddCors(options =>
@@ -101,6 +122,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
