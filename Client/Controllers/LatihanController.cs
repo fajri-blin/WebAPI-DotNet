@@ -13,4 +13,14 @@ public class LatihanController : Controller
     {
         return View();
     }
+
+    public IActionResult ConsumeAPI()
+    {
+        return View();
+    }
+
+    public IActionResult ConsumeAPIFromProject()
+    {
+        return View();
+    }
 }

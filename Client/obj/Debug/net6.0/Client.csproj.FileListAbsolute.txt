@@ -30,3 +30,5 @@ E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\ob
 E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\obj\Debug\net6.0\Client.genruntimeconfig.cache
 E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\obj\Debug\net6.0\ref\Client.dll
 E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout-noheader-nofooter.cshtml.rz.scp.css
+E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout-consumeAPI.cshtml.rz.scp.css
+E:\Dokument\Bootcamp\Metrodata\Tugas Metrodata\C#\Project 1\WebAPI\API\Client\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout-consumeAPIFromProject.cshtml.rz.scp.css

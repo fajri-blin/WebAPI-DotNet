@@ -175,6 +175,7 @@ public class AccountService
                 FirstName = newEntity.FirstName,
                 LastName = newEntity.LastName ?? "",
                 Gender = newEntity.Gender,
+                BirthDate = newEntity.BirthDate,
                 HiringDate = newEntity.HiringDate,
                 Email = newEntity.Email,
                 NIK = GenerateHandler.GenerateNIK(_employeesRepository, newEntity.NIK),

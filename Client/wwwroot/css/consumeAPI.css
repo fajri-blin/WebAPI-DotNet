@@ -1,0 +1,62 @@
+﻿.responsive-text {
+    font-size: 2vw;
+}
+
+@media (max-width: 576px) {
+    /* Small devices (up to 576px) */
+    .responsive-text {
+        font-size: 3vw;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 781px) {
+    /* Medium devices (577px to 1191px) */
+    .responsive-text {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 882px) {
+    /* Large devices (782px) */
+    .responsive-text {
+        font-size: 0.8vw;
+    }
+}
+
+.progress {
+    position: relative;
+    height: 20px;
+}
+
+#list-pokemon{
+    margin:5px 400px;
+    padding: 5px auto;
+}
+
+.label-height{
+    height: 40px;
+}
+
+.progress-height{
+    height: 20px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*Make number percentage on the left side of the current progress bar*/
+.progress {
+    position: relative;
+    height: 20px;
+}
+
+.progress-bar {
+    position: relative;
+}
+
+.progress-bar-text {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+}

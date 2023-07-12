@@ -10,7 +10,8 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
+//[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
+[AllowAnonymous]
 public class EmployeeController : ControllerBase
 {
     private readonly EmployeeService _service;
@@ -20,6 +21,7 @@ public class EmployeeController : ControllerBase
         _service = service;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult GetAll()
     {

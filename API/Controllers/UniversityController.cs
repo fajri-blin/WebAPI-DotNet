@@ -18,11 +18,13 @@ public class UniversityController : ControllerBase
 {
     private readonly UniversityService _service;
 
+
     public UniversityController(UniversityService service)
     {
         _service = service;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult GetAll()
     {

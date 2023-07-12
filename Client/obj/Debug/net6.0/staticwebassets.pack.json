@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Client.bundle.scp.css"
     },
     {
+      "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\css\\consumeAPI.css",
+      "PackagePath": "staticwebassets\\css\\consumeAPI.css"
+    },
+    {
+      "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\css\\consumeAPIFromProject.css",
+      "PackagePath": "staticwebassets\\css\\consumeAPIFromProject.css"
+    },
+    {
       "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\css\\latihan.css",
       "PackagePath": "staticwebassets\\css\\latihan.css"
     },
@@ -15,6 +23,14 @@
     {
       "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\js\\consume_API.js",
+      "PackagePath": "staticwebassets\\js\\consume_API.js"
+    },
+    {
+      "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\js\\consume_APIFromProject.js",
+      "PackagePath": "staticwebassets\\js\\consume_APIFromProject.js"
     },
     {
       "Id": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\wwwroot\\js\\js_fundamental.js",

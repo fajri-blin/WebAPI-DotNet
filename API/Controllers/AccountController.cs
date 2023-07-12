@@ -14,7 +14,8 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles =$"{nameof(RoleLevel.Admin)}")]
+//[Authorize(Roles =$"{nameof(RoleLevel.Admin)}")]
+[AllowAnonymous]
 public class AccountController : ControllerBase
 {
     private readonly AccountService _accountService;

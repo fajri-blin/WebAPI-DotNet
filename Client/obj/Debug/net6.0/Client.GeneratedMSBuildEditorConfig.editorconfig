@@ -24,6 +24,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Latihan/ConsumeAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF0aWhhblxDb25zdW1lQVBJLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Latihan/ConsumeAPIFromProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF0aWhhblxDb25zdW1lQVBJRnJvbVByb2plY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Latihan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGF0aWhhblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -47,6 +55,14 @@ build_metadata.AdditionalFiles.CssScope =
 [E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Shared/_Layout-consumeAPI.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQtY29uc3VtZUFQSS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-n2kqnk3cyt
+
+[E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Shared/_Layout-consumeAPIFromProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQtY29uc3VtZUFQSUZyb21Qcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-rlol9y37bg
 
 [E:/Dokument/Bootcamp/Metrodata/Tugas Metrodata/C\#/Project 1/WebAPI/API/Client/Views/Shared/_Layout-noheader-nofooter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQtbm9oZWFkZXItbm9mb290ZXIuY3NodG1s
