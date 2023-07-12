@@ -102,22 +102,39 @@ $(document).ready(function () {
     $('#employees-table').on('click', '.delete-button', function () {
         var employeeId = $(this).data('guid');
 
-        // Perform the delete action
-        $.ajax({
-            url: `https://localhost:7114/api/Employee?guid=${employeeId}`,
-            type: 'DELETE',
-            success: function (response) {
-                console.log('Employee deleted successfully');
-                // Perform any additional actions after successful deletion
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform the delete action
+                $.ajax({
+                    url: `https://localhost:7114/api/Employee?guid=${employeeId}`,
+                    type: 'DELETE',
+                    success: function (response) {
+                        console.log('Employee deleted successfully');
+                        // Perform any additional actions after successful deletion
 
-                // Refresh the DataTable
-                employeeTable.ajax.reload();
-            },
-            error: function (error) {
-                console.error('Error deleting employee:', error);
-                // Handle error condition
+                        // Refresh the DataTable
+                        employeeTable.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.error('Error deleting employee:', error);
+                        // Handle error condition
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
             }
-        });
+        })
     });
 
     // Event delegation for update buttons
@@ -179,7 +196,13 @@ $(document).ready(function () {
             data: JSON.stringify(employeeData),
             success: function (response) {
                 // Handle the success response
-                console.log('Employee ' + (selectedEmployeeId ? 'updated' : 'created') + ' successfully:', response);
+                //console.log('Employee ' + (selectedEmployeeId ? 'updated' : 'created') + ' successfully:', response);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Employee Data has been ' + (selectedEmployeeId ? 'updated' : 'created'),
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
                 // Reset the form and selectedEmployeeId
                 $('#employeeForm')[0].reset();
@@ -193,7 +216,13 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 // Handle the error response
-                console.log('Error ' + (selectedEmployeeId ? 'updating' : 'creating') + ' employee:', error);
+                console.log('Error ' + (selectedEmployeeId ? 'updating' : 'creating') + ' employee:', error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Employee Data has not been ' + (selectedEmployeeId ? 'updated' : 'created'),
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 // Show an error message or perform any other error handling
             }
         });
