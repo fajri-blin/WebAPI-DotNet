@@ -4,14 +4,14 @@
     "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj": {}
   },
   "projects": {
-    "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj": {
+    "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj",
-        "projectName": "Client",
-        "projectPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj",
+        "projectUniqueName": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Fajri\\.nuget\\packages\\",
-        "outputPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\obj\\",
+        "outputPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Fajri\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,103 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.19, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.18, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.18, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj",
+        "projectName": "Client",
+        "projectPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\Fajri\\.nuget\\packages\\",
+        "outputPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Fajri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj": {
+                "projectPath": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.15, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -13,7 +13,8 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
+//[Authorize(Roles = $"{nameof(RoleLevel.Admin)}")]
+[AllowAnonymous]
 public class UniversityController : ControllerBase
 {
     private readonly UniversityService _service;
@@ -146,7 +147,7 @@ public class UniversityController : ControllerBase
         });
     }
 
-    [HttpDelete]
+    [HttpDelete("{guid}")]
     public IActionResult Delete(Guid guid)
     {
         var delete = _service.DeleteUniversity(guid);

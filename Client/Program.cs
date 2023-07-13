@@ -1,7 +1,11 @@
+using Client.Contracts;
+using Client.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
 
 var app = builder.Build();
 
@@ -19,6 +23,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "university",
+    pattern: "University/{action}/{id?}",
+    defaults: new { controller = "University", action = "Index" });
 
 app.MapControllerRoute(
     name: "default",

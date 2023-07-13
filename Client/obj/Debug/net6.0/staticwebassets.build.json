@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "e+VOBUv6ZOgZpY+uZS1TxNhqqrvZUKLluYWPIgzKoCM=",
+  "Hash": "MDNpIBKleRteVjspdcqfcLj+eXGPZe5riiJKsKIU3hU=",
   "Source": "Client",
   "BasePath": "_content/Client",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "E:\\Dokument\\Bootcamp\\Metrodata\\Tugas Metrodata\\C#\\Project 1\\WebAPI\\API\\API\\API.csproj",
+      "Version": 2,
+      "Source": "API",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "Client\\wwwroot",

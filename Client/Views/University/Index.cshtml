@@ -1,0 +1,50 @@
+﻿@model IEnumerable<API.DTOs.University.GetUniversityDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout-noheader-nofooter";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a href="/University/Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Guid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Guid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "University", new { Guid = item.Guid }, null) |
+                    @Html.ActionLink("Details", "Details", "University", new { id = item.Guid }, null) |
+                    @Html.ActionLink("Delete", "Remove", "University", new { Guid = item.Guid }, null)
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
