@@ -7,7 +7,7 @@ $(document).ready(function () {
         ajax: {
             url: "https://localhost:7114/api/Employee",
             dataType: "JSON",
-            dataSrc: "data"
+            dataSrc: "data",
         },
         dom: "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -234,8 +234,72 @@ $(document).ready(function () {
         $('#employeeForm')[0].reset();
         selectedEmployeeId = null;
     });
-
 });
+
+// Get all data from the DataTable
+let num = 0;
+let selectedEmployeeId = null; // Variable to store the selected employee ID for update
+
+let tableData = []; // Variable to store all data from the API
+
+fetch("https://localhost:7114/api/Employee")
+    .then(response => response.json())
+    .then(data => {
+        tableData = data.data;
+        console.log(tableData); // Output the data to the console
+
+        // Perform operations on the data as needed
+
+        // Call a function to generate the chart using the data
+        generateGenderChart(tableData);
+    })
+    .catch(error => {
+        console.error("Error fetching data:", error);
+    });
+
+let genderChart;
+
+function generateGenderChart(data) {
+    if (Array.isArray(data)) {
+        const maleCount = data.filter(item => item.gender === 1).length;
+        const femaleCount = data.filter(item => item.gender === 0).length;
+
+        console.log(maleCount);
+        console.log(femaleCount);
+
+        const ctx = document.getElementById('genderChart').getContext('2d');
+
+        if (genderChart) {
+            genderChart.data.datasets[0].data = [maleCount, femaleCount];
+            // Re-render the chart
+            genderChart.update();
+        } else {
+            genderChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Male', 'Female'],
+                    datasets: [{
+                        data: [maleCount, femaleCount],
+                        backgroundColor: ['blue', 'pink'],
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Set maintainAspectRatio to false
+                    width: 400, // Set the width of the chart
+                    height: 400, // Set the height of the chart
+                },
+            });
+        }
+    } else {
+        console.error('Invalid data format:', data);
+    }
+}
+
+// After a successful creation of a new employee or update
+generateGenderChart(tableData);
+
+
 
 function gender(num) {
     let gender = ""
